@@ -23,6 +23,7 @@ public class FXMLController {
 
     @FXML
     void doTranslate(ActionEvent event) {
+    	
     	// TODO - add the button and complete this    	
     }
     
