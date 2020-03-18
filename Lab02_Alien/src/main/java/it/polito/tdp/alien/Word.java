@@ -34,8 +34,8 @@ public class Word {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		String parola= (String) obj;
-		if(this.alienWord.compareTo(parola)==0)
+		Word w= (Word) obj;
+		if(this.alienWord.compareTo(w.getAlienWord())==0)
 			return true;
 		return false;
 	}

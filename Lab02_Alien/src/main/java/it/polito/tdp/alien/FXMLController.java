@@ -29,7 +29,7 @@ public class FXMLController {
    @FXML
    private TextArea txtRisultati;
    
-   AlienDictionary ad;
+   private AlienDictionary ad= new AlienDictionary();
 
     @FXML
     void doTranslate(ActionEvent event) {
@@ -38,22 +38,32 @@ public class FXMLController {
     	//Controllo il testo: è formato da una o da due parole? 
     	String[] parole=text.split(" ");
     	String alienWord= parole[0];
-    	String traduzione=parole[1];
     	//Chiamo i metodi necessari
     	if(parole.length==1) {
     		//chiamo metodo di traduzione
     		String parolaTradotta=ad.translateWord(alienWord);
+    		if(parolaTradotta==null) {
+    			txtRisultati.setText("La parola cercata ("+parolaTradotta+") non ha ancora una traduzione");
+    		}
+    		txtRisultati.setText("La traduzione della parola cercata e': "+parolaTradotta);
+    		return;
     	}else if(parole.length==2) {
     		//chiamo metodo di aggiunta parola al dizionario
+    		String traduzione=parole[1];
     		ad.addWord(alienWord, traduzione);
+    		txtRisultati.setText("Aggiunta parola al dizionario");
     	}else {
     		//le parole non sono ne 2 e ne 1 perciò il formato inserito è sbagliato, lanciare un errore
+    		txtRisultati.setText("Scegliere tra:\n 1)'parola aliena' 'traduzione'-->Memorizza nel dizionario la traduzione della parola"
+    				+ "\n2)'parola aliena'-->Restituisce la traduzione della parola aliena cercata");
+    		txtParole.clear();
+    		return;
     		
     	}
     	
     	//Ripulisco casella di testo
     	txtParole.clear();
-    	txtRisultati.setText("Aggiunta parola al dizionario");
+    	
     	  	
     }
     

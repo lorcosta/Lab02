@@ -6,6 +6,9 @@ public class AlienDictionary {
 	
 	private ArrayList<Word> words;//mappa che contiene nella chiave le parole aliene 
 	
+	public AlienDictionary() {
+		this.words = new ArrayList<>();
+	}
 	/**
 	 * Aggiunge al dizionario alieno una nuova traduzione
 	 * @param alienWord
@@ -13,7 +16,7 @@ public class AlienDictionary {
 	 */
 	public void addWord(String alienWord, String translation) {
 		Word w= new Word(alienWord,translation);
-		if(words.contains(alienWord)) {
+		if(words.contains(w)) {
 			int i=words.indexOf(w);
 			words.get(i).setTranslation(translation);;
 			return;
@@ -28,7 +31,7 @@ public class AlienDictionary {
 	public String translateWord(String alienWord) {
 		for(Word w:words) {
 			if(w.getAlienWord().compareTo(alienWord)==0)
-				return alienWord;
+				return w.getTranslation();
 		}
 		return null;
 	}
