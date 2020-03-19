@@ -31,10 +31,23 @@ public class FXMLController {
    
    private AlienDictionary ad= new AlienDictionary();
 
+   /**
+    * Traduco o inserisco nel dizionario le parole
+    * @param event
+    * @return valori di testo nelle caselle
+    */
     @FXML
     void doTranslate(ActionEvent event) {
     	//Acquisisco il testo in una stringa
     	String text= txtParole.getText();
+    	text=text.toLowerCase();
+    	char [] c=text.toCharArray();
+    	for(Character i:c) {
+    		if(Character.isDigit(i)) {
+    			txtRisultati.setText("I numeri non sono ammessi nel dizionario");
+    			return;
+    		}
+    	}
     	//Controllo il testo: è formato da una o da due parole? 
     	String[] parole=text.split(" ");
     	String alienWord= parole[0];
@@ -60,17 +73,15 @@ public class FXMLController {
     		return;
     		
     	}
-    	
     	//Ripulisco casella di testo
     	txtParole.clear();
-    	
-    	  	
     }
     
     
     @FXML
     void doReset(ActionEvent event) {
-    	// TODO - add the button and complete this 
+    	txtRisultati.clear();
+    	txtParole.clear();
     }
     
     

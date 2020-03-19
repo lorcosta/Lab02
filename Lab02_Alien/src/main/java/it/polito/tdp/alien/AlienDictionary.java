@@ -4,10 +4,10 @@ import java.util.*;
 
 public class AlienDictionary {
 	
-	private ArrayList<Word> words;//mappa che contiene nella chiave le parole aliene 
+	//private ArrayList<Word> words;
+	private ArrayList<WordEnhanced> we= new ArrayList<>();
 	
 	public AlienDictionary() {
-		this.words = new ArrayList<>();
 	}
 	/**
 	 * Aggiunge al dizionario alieno una nuova traduzione
@@ -15,13 +15,20 @@ public class AlienDictionary {
 	 * @param translation
 	 */
 	public void addWord(String alienWord, String translation) {
-		Word w= new Word(alienWord,translation);
-		if(words.contains(w)) {
+		WordEnhanced w= new WordEnhanced(alienWord,translation);
+		/*if(words.contains(w)) {//se la parola è già presente nel dizionario la aggiorno
 			int i=words.indexOf(w);
 			words.get(i).setTranslation(translation);;
 			return;
+		}*/
+		for(WordEnhanced word:we) {
+			if(word.getAlienWord().compareTo(alienWord)==0) {
+				word.aggiungiTraduzioni(translation);
+				return;
+			}
 		}
-		words.add(w);
+		w.aggiungiTraduzioni(translation);
+		we.add(w);
 	}
 	/**
 	 * Restituisce la traduzione di una parola aliena o null se la parola cercata non è nel dizionario
@@ -29,10 +36,16 @@ public class AlienDictionary {
 	 * @return translatedWord
 	 */
 	public String translateWord(String alienWord) {
-		for(Word w:words) {
-			if(w.getAlienWord().compareTo(alienWord)==0)
-				return w.getTranslation();
+		String returno=null;
+		for(WordEnhanced w:we) {
+			if(w.getAlienWord().compareTo(alienWord)==0) {
+				for(String s:w.getTradMultiple()) {
+					if(returno==null)
+						returno=s;
+					else returno+=", "+s;
+				}
+			}
 		}
-		return null;
+		return returno;
 	}
 }
