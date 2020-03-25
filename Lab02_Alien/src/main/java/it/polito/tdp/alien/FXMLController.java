@@ -54,6 +54,7 @@ public class FXMLController {
     	//Chiamo i metodi necessari
     	if(parole.length==1) {
     		//chiamo metodo di traduzione
+    		//String[] spezzoni=alienWord.split("?");
     		String parolaTradotta=ad.translateWord(alienWord);
     		if(parolaTradotta==null) {
     			txtRisultati.setText("La parola cercata ("+parolaTradotta+") non ha ancora una traduzione");
